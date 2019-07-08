@@ -379,10 +379,10 @@ WHERE city = 'Paris';
 
 ---[b]------
 ---AND details
-SELECT DISTINCT city
+SELECT city
 FROM suppliers
 INTERSECT
-SELECT DISTINCT city
+SELECT city
 FROM details
 ORDER BY city;
 
@@ -394,10 +394,10 @@ SELECT DISTINCT city
 FROM details
 ORDER BY city; ---If need all dublicates in 2 tables: delete DISTINCT
 
-SELECT DISTINCT city
+SELECT city
 FROM suppliers
 UNION
-SELECT DISTINCT city
+SELECT city
 FROM details
 ORDER BY city;
 
@@ -451,9 +451,8 @@ INNER JOIN details AS d
 ON sp.detailid = d.detailid
 INNER JOIN products AS p
 ON sp.productid = p.productid
-WHERE d.color = 'green' AND p.city != 'Paris'
-)
----If option "Not from Paris" is only for second select
+WHERE d.color = 'green' AND p.city != 'Paris' ---If option "Not from Paris" is only for second select
+);
 
 
 
