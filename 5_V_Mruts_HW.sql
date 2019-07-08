@@ -190,8 +190,11 @@ SELECT 1 AS frst
 UNION ALL
 SELECT frst + 1 FROM nat_ETC
 WHERE frst < 1000
+),
+natplus1(frst) AS(
+SELECT frst + 1 FROM nat_ETC
 )
-SELECT * FROM nat_ETC
+SELECT * FROM natplus1
 OPTION (MAXRECURSION 1000);
 
 ---[b]------
