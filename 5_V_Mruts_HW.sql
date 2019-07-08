@@ -439,20 +439,41 @@ FROM products
 WHERE city IN ('Paris', 'Roma'); --- if it`s just A1 - A2
 
 ---[e]------
+---If option "Not from Paris" is only for second select
 SELECT sp.supplierid, sp.detailid, sp.productid
 FROM supplies AS sp
 INNER JOIN suppliers AS s
 ON sp.supplierid = s.supplierid
 WHERE s.city = 'London'
 UNION
-(SELECT sp.supplierid, sp.detailid, sp.productid
+(
+SELECT sp.supplierid, sp.detailid, sp.productid
 FROM supplies AS sp
 INNER JOIN details AS d
 ON sp.detailid = d.detailid
 INNER JOIN products AS p
 ON sp.productid = p.productid
 WHERE d.color = 'green' AND p.city != 'Paris' ---If option "Not from Paris" is only for second select
-);
+); ---If using second WHERE option
 
 
+SELECT sp.supplierid, sp.detailid, sp.productid
+FROM supplies AS sp
+INNER JOIN suppliers AS s
+ON sp.supplierid = s.supplierid
+WHERE s.city = 'London'
+UNION
+(
+SELECT sp.supplierid, sp.detailid, sp.productid
+FROM supplies AS sp
+INNER JOIN details AS d
+ON sp.detailid = d.detailid
+WHERE d.color = 'green'
+EXCEPT
+SELECT sp.supplierid, sp.detailid, sp.productid
+FROM supplies AS sp
+INNER JOIN products AS p
+ON sp.productid = p.productid
+WHERE p.city != 'Paris'
+); --- if using except instead of second WHERE option
 
