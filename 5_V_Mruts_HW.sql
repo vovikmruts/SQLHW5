@@ -378,6 +378,15 @@ FROM suppliers
 WHERE city = 'Paris';
 
 ---[b]------
+---AND details
+SELECT DISTINCT city
+FROM suppliers
+INTERSECT
+SELECT DISTINCT city
+FROM details
+ORDER BY city;
+
+---OR details
 SELECT DISTINCT city
 FROM suppliers
 UNION ALL
